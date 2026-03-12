@@ -6,6 +6,89 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## 2026-03-12
+
+### Added
+- Structured GitHub issue templates with YAML forms: Bug Report, Feature Request, Documentation Issue, and Card Data Issue — replacing the old Markdown templates
+- Automated issue management workflows: Claude-powered triage and duplicate detection, auto-close duplicates, lock stale issues, lifecycle comments, and issue sweep
+- 12 new issue labels for feature areas (binder-builder, deck-builder, collection, search, card-data, card-pricing, missing-card, etc.) and workflow automation (triage, autoclose)
+
+---
+
+## 2026-03-09
+
+### Added
+- Global search across cards, sets, and precons with fuzzy matching, card previews, and keyboard shortcuts
+- Collection sharing now supports game switching between MTG and FF TCG
+- Updated landing page with new hero section and multi-game messaging
+
+---
+
+## 2026-03-06 — 2026-03-08
+
+### Added
+- Social login via Google and Discord OAuth, with account linking and unlinking for existing accounts
+- Major UI redesign: new sidebar-based navigation, unified dashboard layout, and top bar with integrated search
+- New routing structure with dedicated binder builder and deck builder sections
+- Admin panel with game settings, set management, and user administration
+- Full analytics support for Final Fantasy TCG including missing cards, completion progress, and value tracking
+
+---
+
+## 2026-03-03 — 2026-03-05
+
+### Added
+- Animated set and game selection screen with visual transitions between MTG and FF TCG
+- Dual-color flame aura effects for cards with animated fire shader and mask pathing
+
+---
+
+## 2026-03-01
+
+### Added
+- Privacy policy and terms of service pages (GDPR-compliant)
+- Full account deletion flow with confirmation safeguard — removes all user data, collection, profile, and settings permanently
+
+---
+
+## 2026-02-28
+
+### Added
+- Legacy sponsor crown icon with animated twinkling sparkle effects
+- Notification list read more / show less expansion
+- Smokescreen build test to prevent errored deployments
+
+### Changed
+- Major light mode styling overhaul across all components including analytics, builder, cards, sidebar, and top bar
+- Updated FAB navigation order on mobile
+
+### Fixed
+- Resolved critical crash caused by crown icon introduction
+- Fixed several mobile analytics layout issues
+
+---
+
+## 2026-02-27
+
+### Added
+- Rebuilt the analytics section from the ground up with three dedicated pages: Value Insights, Completion Progress, and Missing Cards. Each page features KPI cards, interactive charts, sortable data tables, and set quick-filter badges for instant scoping.
+- Added price sparklines to card displays across analytics, showing 30-day price trend mini-charts per card.
+- Added trending cards sections showing the top 5 cards with the biggest price increases and decreases.
+- Added a value over time line chart tracking total collection value day by day with tooltips and date formatting.
+- Added a Cost to Complete KPI card with tabs to toggle between cheapest-available (nonfoil) and premium (foil/surge) pricing.
+- Added set quick-filter badges across all analytics pages. Click any set to instantly filter the entire page to that set — no loading screens, no recomputation.
+
+### Fixed
+- Fixed shared collection pages showing incorrect foil and surge effects, including an old animated surge texture. Share page card rendering now matches the main collection grid exactly.
+- Consolidated duplicated card variant detection logic (getHoloVariant, getFinishAvailability) into a single shared utility used by all card display components. Eliminates inconsistencies between the card grid, carousel, analytics zoom, and share pages.
+- Fixed a trailing brace typo in the card grid surge overlay CSS class name.
+
+### Changed
+- Analytics pages now use a single cached data source with lightweight memo-based filtering, making set filter switching instant with no blocking or recomputation.
+- Moved per-set rarity stats computation into the global analytics hook, eliminating redundant per-set recalculations on filter changes.
+
+---
+
 ## 2026-02-19
 
 ### Added
