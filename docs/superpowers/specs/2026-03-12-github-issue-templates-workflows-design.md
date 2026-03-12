@@ -45,8 +45,6 @@ Each template file includes top-level `name` and `description` fields (required 
 
 The Claude triage workflow will apply these platform labels and feature area labels (`binder-builder`, `deck-builder`, etc.) based on dropdown selections and issue content.
 
-**Feature Request "Both" platform mapping:** "Both" → `website` + `mobile`
-
 ### 2. Feature Request (`feature_request.yml`)
 
 **Auto-labels:** `feat` (for new features) or `enhancement` (for improvements to existing features — applied by Claude triage based on content)
@@ -61,7 +59,7 @@ Note: Both `feat` and `enhancement` already exist in the repo. `feat` = "New fea
 | Problem Statement | textarea | yes | What problem does this solve? |
 | Proposed Solution | textarea | yes | How should it work? |
 | Alternative Solutions | textarea | no | Workarounds or other approaches considered |
-| Platform | dropdown | yes | Web, Mobile, Both |
+| Platform | dropdown | yes | Web, Mobile, Both. Mapping: "Web" → `website`, "Mobile" → `mobile`, "Both" → `website` + `mobile` |
 | Feature Area | dropdown | yes | Binder Builder, Deck Builder, Card Search, Collection Management, UI/UX, Performance, Login/Account, Other |
 | Use Case Example | textarea | no | Concrete scenario |
 | Additional Context | textarea | no | Mockups, examples, links |
