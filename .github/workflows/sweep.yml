@@ -1,0 +1,109 @@
+name: Issue Sweep
+
+on:
+  schedule:
+    - cron: "0 10,22 * * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+concurrency:
+  group: daily-issue-sweep
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enforce lifecycle timeouts
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const now = new Date();
+
+            async function getIssuesWithLabel(label) {
+              const issues = [];
+              let page = 1;
+              while (true) {
+                const { data } = await github.rest.issues.listForRepo({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  state: 'open',
+                  labels: label,
+                  per_page: 100,
+                  page: page
+                });
+                if (data.length === 0) break;
+                issues.push(...data.filter(i => !i.pull_request));
+                page++;
+              }
+              return issues;
+            }
+
+            function daysSince(dateStr) {
+              return (now - new Date(dateStr)) / (1000 * 60 * 60 * 24);
+            }
+
+            // 1. needs review + no response > 14 days → add autoclose
+            const needsReview = await getIssuesWithLabel('needs review');
+            for (const issue of needsReview) {
+              if (daysSince(issue.updated_at) > 14) {
+                const hasAutoclose = issue.labels.some(l => l.name === 'autoclose');
+                if (!hasAutoclose) {
+                  await github.rest.issues.addLabels({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    labels: ['autoclose']
+                  });
+                  console.log(`Added autoclose to issue #${issue.number} (needs review > 14 days)`);
+                }
+              }
+            }
+
+            // 2. autoclose + no response > 7 days → close
+            const autoclose = await getIssuesWithLabel('autoclose');
+            for (const issue of autoclose) {
+              if (daysSince(issue.updated_at) > 7) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  body: 'This issue has been automatically closed due to inactivity. If this is still relevant, please open a new issue and reference this one.'
+                });
+                await github.rest.issues.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  state: 'closed',
+                  state_reason: 'not_planned'
+                });
+                console.log(`Closed issue #${issue.number} (autoclose > 7 days)`);
+              }
+            }
+
+            // 3. triage + no activity > 30 days → add needs review, remove triage
+            const triage = await getIssuesWithLabel('triage');
+            for (const issue of triage) {
+              if (daysSince(issue.updated_at) > 30) {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  labels: ['needs review']
+                });
+                try {
+                  await github.rest.issues.removeLabel({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    name: 'triage'
+                  });
+                } catch (e) {
+                  if (e.status !== 404) throw e;
+                }
+                console.log(`Escalated issue #${issue.number} from triage to needs review (> 30 days)`);
+              }
+            }
+
+            console.log('Sweep complete.');

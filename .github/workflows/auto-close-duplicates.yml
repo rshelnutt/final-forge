@@ -1,0 +1,96 @@
+name: Auto-close duplicate issues
+
+on:
+  schedule:
+    - cron: "0 9 * * *"
+  workflow_dispatch:
+
+jobs:
+  auto-close-duplicates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      issues: write
+
+    steps:
+      - name: Auto-close duplicate issues
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const threeDaysAgo = new Date();
+            threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
+
+            let page = 1;
+            let totalClosed = 0;
+
+            while (true) {
+              const { data: issues } = await github.rest.issues.listForRepo({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: 'open',
+                labels: 'duplicate',
+                per_page: 100,
+                page: page
+              });
+
+              if (issues.length === 0) break;
+
+              for (const issue of issues) {
+                if (issue.pull_request) continue;
+
+                // Use updated_at as a proxy for last activity — if any activity
+                // happened within 3 days, skip to give maintainers time to review
+                const lastActivity = new Date(issue.updated_at);
+                if (lastActivity > threeDaysAgo) continue;
+
+                // Search bot comments for duplicate references (from dedup workflow)
+                let originalRef = '';
+                try {
+                  const { data: comments } = await github.rest.issues.listComments({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    per_page: 50
+                  });
+
+                  for (const comment of comments) {
+                    // Only check bot comments for duplicate references
+                    if (comment.user.type !== 'Bot' && comment.user.login !== 'github-actions[bot]') continue;
+                    const match = comment.body.match(/#(\d+)/);
+                    if (match) {
+                      originalRef = ` See #${match[1]} for the original issue.`;
+                      break;
+                    }
+                  }
+                } catch (e) {
+                  console.log(`Failed to fetch comments for #${issue.number}: ${e.message}`);
+                }
+
+                try {
+                  await github.rest.issues.createComment({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    body: `This issue has been automatically closed as a duplicate.${originalRef} If you believe this is incorrect, please comment and a maintainer will review.`
+                  });
+
+                  await github.rest.issues.update({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    state: 'closed',
+                    state_reason: 'not_planned'
+                  });
+
+                  totalClosed++;
+                  console.log(`Closed duplicate issue #${issue.number}`);
+                } catch (e) {
+                  console.error(`Failed to close #${issue.number}: ${e.message}`);
+                }
+              }
+
+              page++;
+            }
+
+            console.log(`Total duplicate issues closed: ${totalClosed}`);

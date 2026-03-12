@@ -1,0 +1,37 @@
+name: Issue Lifecycle Comment
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  issues: write
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post lifecycle comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const label = context.payload.label.name;
+
+            const comments = {
+              'duplicate': 'This issue has been identified as a duplicate. It will be closed in favor of the original. If you believe this is incorrect, please comment.',
+              'wontfix': 'This issue has been reviewed and will not be addressed at this time. If you have additional context that might change this decision, please share it.',
+              'needs review': 'This issue needs additional information. Please provide the requested details so we can investigate further. Issues without a response may be closed after 14 days.',
+              'autoclose': 'This issue is scheduled for automatic closure due to inactivity. Comment on this issue to prevent closure.'
+            };
+
+            const message = comments[label];
+            if (!message) return;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: message
+            });
+
+            console.log(`Posted lifecycle comment for label: ${label}`);
