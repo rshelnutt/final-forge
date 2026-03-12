@@ -1,0 +1,87 @@
+name: Claude Issue Triage
+on:
+  issues:
+    types: [opened]
+  issue_comment:
+    types: [created]
+
+jobs:
+  triage-issue:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: >-
+      github.event_name == 'issues' ||
+      (github.event_name == 'issue_comment' && !github.event.issue.pull_request && github.event.comment.user.type != 'Bot')
+    concurrency:
+      group: issue-triage-${{ github.event.issue.number }}
+      cancel-in-progress: true
+    permissions:
+      contents: read
+      issues: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Claude Code for Issue Triage
+        timeout-minutes: 5
+        uses: anthropics/claude-code-action@v1
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          allowed_non_write_users: "*"
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            You are an issue triage bot for Final Forge, a Magic: The Gathering card collection and deck building app (web + mobile).
+
+            Analyze this issue and apply the appropriate labels. The issue is #${{ github.event.issue.number }} in ${{ github.repository }}.
+
+            ## Label Taxonomy
+
+            **Platform labels** (based on Platform dropdown or content):
+            - `website` — Web app issues
+            - `mobile` — Mobile app issues (apply alongside ios/android)
+            - `ios` — iOS-specific issues
+            - `android` — Android-specific issues
+
+            Platform mapping rules:
+            - "Web" → add `website`
+            - "Mobile (iOS)" → add `mobile` + `ios`
+            - "Mobile (Android)" → add `mobile` + `android`
+            - "Mobile" → add `mobile`
+            - "Both" → add `website` + `mobile`
+
+            **Feature area labels** (based on Feature Area dropdown or content):
+            - `binder-builder` — Binder builder
+            - `deck-builder` — Deck builder
+            - `search` — Card search
+            - `collection` — Collection management
+            - `ui-ux` — UI/UX design and interaction
+            - `performance` — Performance issues
+            - `login-account` — Login and account
+
+            **Card data sub-labels** (for card-data issues, based on Issue Type dropdown):
+            - `card-pricing` — Incorrect Pricing
+            - `missing-card` — Missing Card
+
+            **Issue type labels** (may reclassify based on content):
+            - `feat` — New feature request (keep if truly new)
+            - `enhancement` — Improvement to existing feature (reclassify from `feat` if appropriate)
+
+            **Always apply on new issues:**
+            - `triage` — Mark for team review
+
+            ## Instructions
+
+            1. Read the issue title, body, and any template dropdown selections.
+            2. Apply the appropriate platform label(s) per the mapping rules above.
+            3. Apply the appropriate feature area label(s).
+            4. For card-data issues, apply the appropriate sub-label.
+            5. If this is a new issue (not a comment update), apply the `triage` label.
+            6. For feature requests, assess whether it's truly new (`feat`) or an improvement to something that exists (`enhancement`). Reclassify if needed.
+            7. Do NOT remove labels that were applied by the template itself (like `bug`, `feat`, `card-data`, `documentation`).
+            8. Do NOT apply priority labels (P0-blocking, P1-high, critical) — those are for the team only.
+
+            Apply labels silently. Do not post a comment.

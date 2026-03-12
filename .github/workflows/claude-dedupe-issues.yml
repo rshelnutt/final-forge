@@ -1,0 +1,62 @@
+name: Claude Issue Dedupe
+on:
+  issues:
+    types: [opened]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: "Issue number to check for duplicates"
+        required: true
+        type: string
+
+jobs:
+  claude-dedupe-issues:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    concurrency:
+      group: issue-dedupe-${{ github.event.issue.number || inputs.issue_number }}
+      cancel-in-progress: true
+    permissions:
+      contents: read
+      issues: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Claude Code for Duplicate Detection
+        timeout-minutes: 5
+        uses: anthropics/claude-code-action@v1
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          allowed_non_write_users: "*"
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            You are a duplicate issue detector for Final Forge, a Magic: The Gathering card app.
+
+            Check if issue #${{ github.event.issue.number || inputs.issue_number }} in ${{ github.repository }} is a duplicate of any existing open issue.
+
+            ## Instructions
+
+            1. Read the new issue's title and body.
+            2. Use the GitHub CLI to search open issues: `gh issue list --repo ${{ github.repository }} --state open --limit 100 --json number,title,body,labels`
+            3. Compare the new issue against existing open issues. Look for:
+               - Same bug being reported (even if described differently)
+               - Same feature being requested
+               - Same documentation gap
+               - Same card data problem
+            4. If you find potential duplicates (>70% confidence), post a SINGLE comment on the issue:
+
+            Format:
+            ```
+            **Possible duplicates found:**
+            - #<number> - <title> (reason for match)
+            - #<number> - <title> (reason for match)
+
+            If this is indeed a duplicate, a maintainer will mark it accordingly.
+            ```
+
+            5. If no duplicates found, do nothing. Do NOT post a comment saying "no duplicates found."
+            6. Be conservative — only flag issues that are genuinely similar. Different bugs in the same feature area are NOT duplicates.
