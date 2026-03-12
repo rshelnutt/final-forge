@@ -1,0 +1,124 @@
+name: "\U0001F41B Bug Report"
+description: Report a bug or unexpected behavior in Final Forge
+title: "[BUG] "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting this bug! Please fill out the sections below so we can investigate.
+
+        Before submitting, please check:
+        - You've searched [existing issues](https://github.com/rshelnutt/final-forge/issues?q=is%3Aissue+state%3Aopen+label%3Abug) to make sure this hasn't been reported yet.
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Preflight Checklist
+      options:
+        - label: I have searched [existing issues](https://github.com/rshelnutt/final-forge/issues?q=is%3Aissue+state%3Aopen+label%3Abug) and this hasn't been reported yet
+          required: true
+        - label: This is a single bug report (please file separate reports for different bugs)
+          required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: What's Wrong?
+      description: Describe what's happening that shouldn't be
+      placeholder: |
+        When I try to add a card to my binder, the page shows a blank screen...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What Should Happen?
+      description: Describe the expected behavior
+      placeholder: The card should be added to my binder and the page should update to show it
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Please provide clear, numbered steps that anyone can follow to reproduce the issue.
+      placeholder: |
+        1. Go to the Binder Builder page
+        2. Search for "Lightning Bolt"
+        3. Click "Add to Binder"
+        4. See blank screen
+    validations:
+      required: true
+
+  - type: textarea
+    id: error_output
+    attributes:
+      label: Error Messages/Logs
+      description: If you see any error messages, paste them here
+      placeholder: Paste any error output or console messages here.
+      render: shell
+    validations:
+      required: false
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: Which platform are you using?
+      options:
+        - Web
+        - Mobile (iOS)
+        - Mobile (Android)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      description: If using the web app, which browser?
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Other
+    validations:
+      required: false
+
+  - type: dropdown
+    id: feature_area
+    attributes:
+      label: Feature Area
+      description: Which part of the app is affected?
+      options:
+        - Binder Builder
+        - Deck Builder
+        - Card Search
+        - Collection Management
+        - UI/UX
+        - Performance
+        - Login/Account
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, drag and drop screenshots here
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Anything else that might help us understand the issue?
+    validations:
+      required: false

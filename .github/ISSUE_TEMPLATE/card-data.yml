@@ -1,0 +1,102 @@
+name: "\U0001F0CF Card Data Issue"
+description: Report incorrect pricing, missing cards, or wrong card information
+title: "[CARD DATA] "
+labels:
+  - card-data
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Report an issue with card data (pricing, images, metadata, or missing cards).
+
+        Card data is sourced from Scryfall. If possible, include a link to the correct data on Scryfall so we can compare.
+
+  - type: dropdown
+    id: issue_type
+    attributes:
+      label: Issue Type
+      description: What kind of card data issue is this?
+      options:
+        - Incorrect Pricing
+        - Missing Card
+        - Wrong Image
+        - Wrong Card Info/Metadata
+        - Outdated Data
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: card_name
+    attributes:
+      label: Card Name
+      description: The full name of the affected card
+      placeholder: "e.g., Lightning Bolt"
+    validations:
+      required: true
+
+  - type: input
+    id: set_name
+    attributes:
+      label: Set Name
+      description: The set or expansion the card belongs to
+      placeholder: "e.g., Alpha, Modern Horizons 3"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: Where did you see this issue?
+      options:
+        - Web
+        - Mobile
+        - Both
+    validations:
+      required: true
+
+  - type: textarea
+    id: whats_wrong
+    attributes:
+      label: What's Wrong?
+      description: Describe the data issue you're seeing
+      placeholder: |
+        The price shown for Lightning Bolt (Alpha) is $0.25, but it should be much higher...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_data
+    attributes:
+      label: Expected Data
+      description: What the correct data should be
+      placeholder: |
+        According to Scryfall/TCGPlayer, the correct price is approximately $X...
+    validations:
+      required: true
+
+  - type: input
+    id: source_reference
+    attributes:
+      label: Source/Reference
+      description: Link to Scryfall or another source with the correct data
+      placeholder: "e.g., https://scryfall.com/card/lea/232/lightning-bolt"
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, drag and drop screenshots showing the incorrect data
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other information that might help
+    validations:
+      required: false

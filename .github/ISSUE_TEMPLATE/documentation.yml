@@ -1,0 +1,95 @@
+name: "\U0001F4DA Documentation Issue"
+description: Report missing, unclear, or incorrect documentation
+title: "[DOCS] "
+labels:
+  - documentation
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Help us improve our documentation! Please let us know what's missing or confusing.
+
+  - type: dropdown
+    id: doc_type
+    attributes:
+      label: Documentation Type
+      description: What kind of documentation issue is this?
+      options:
+        - Missing documentation (feature not documented)
+        - Unclear/confusing documentation
+        - Incorrect/outdated documentation
+        - Typo or formatting issue
+        - Missing code examples
+        - Broken links
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Documentation Location
+      description: Where did you encounter this issue? Provide a URL if possible.
+      placeholder: "e.g., https://finalforge.app/docs/getting-started"
+    validations:
+      required: false
+
+  - type: input
+    id: section
+    attributes:
+      label: Section/Topic
+      description: Which specific section or topic needs improvement?
+      placeholder: "e.g., Binder Builder usage guide"
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: Current Documentation
+      description: What does the documentation currently say? Quote the specific text if applicable.
+      placeholder: |
+        The docs currently say:
+        "To add a card to your binder, click..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: issue
+    attributes:
+      label: What's Wrong or Missing?
+      description: Explain what's incorrect, unclear, or missing
+      placeholder: |
+        The documentation doesn't explain how to...
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested
+    attributes:
+      label: Suggested Improvement
+      description: How should the documentation be improved?
+      placeholder: |
+        The documentation should include a step-by-step guide for...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: impact
+    attributes:
+      label: Impact
+      description: How much does this documentation issue affect users?
+      options:
+        - High - Prevents users from using a feature
+        - Medium - Makes feature difficult to understand
+        - Low - Minor confusion or inconvenience
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Screenshots, links to related documentation, etc.
+    validations:
+      required: false

@@ -1,0 +1,101 @@
+name: "\u2728 Feature Request"
+description: Suggest a new feature or enhancement for Final Forge
+title: "[FEATURE] "
+labels:
+  - feat
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a feature! Please help us understand your use case.
+
+        Before submitting, please check if this feature has already been requested by searching [existing requests](https://github.com/rshelnutt/final-forge/issues?q=is%3Aissue+label%3Afeat).
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Preflight Checklist
+      options:
+        - label: I have searched [existing requests](https://github.com/rshelnutt/final-forge/issues?q=is%3Aissue+label%3Afeat+label%3Aenhancement) and this feature hasn't been requested yet
+          required: true
+        - label: This is a single feature request (not multiple features)
+          required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: What problem are you trying to solve? Focus on the problem, not the solution.
+      placeholder: |
+        I often need to compare prices across multiple printings of a card, but currently I can only see one printing at a time...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: How would you like this to work?
+      placeholder: |
+        I'd like a comparison view that shows all printings side-by-side with their current prices...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative Solutions
+      description: What alternatives have you considered or tried?
+      placeholder: |
+        Currently I open multiple browser tabs to compare...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: Which platform should this feature be on?
+      options:
+        - Web
+        - Mobile
+        - Both
+    validations:
+      required: true
+
+  - type: dropdown
+    id: feature_area
+    attributes:
+      label: Feature Area
+      description: What area does this feature relate to?
+      options:
+        - Binder Builder
+        - Deck Builder
+        - Card Search
+        - Collection Management
+        - UI/UX
+        - Performance
+        - Login/Account
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use Case Example
+      description: Provide a concrete, real-world scenario of when you'd use this feature.
+      placeholder: |
+        1. I'm building a Commander deck
+        2. I want to track which cards I already own
+        3. With this feature I could...
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Mockups, examples, links to similar features in other tools, etc.
+    validations:
+      required: false
