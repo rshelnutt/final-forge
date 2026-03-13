@@ -19,6 +19,8 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            // Autoclose label no longer triggers auto-closing, but still remove
+            // the label on activity to keep issue labels clean.
             console.log(`Removing autoclose label from issue #${context.issue.number} due to new comment from ${context.payload.comment.user.login}`);
 
             try {
