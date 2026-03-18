@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## 2026-03-16 — 2026-03-18
+
+### Added
+- Unified card grid that works across all games — MTG and FF TCG now share the same grid component with game-specific rendering
+- Server-side analytics processing via Supabase RPCs for faster load times and reduced client-side computation
+- Virtualized data tables in analytics for smoother scrolling with large card lists
+- Full FF TCG analytics suite with dedicated Value, Progress, and Missing Cards pages including price sparklines and card thumbnails
+
+### Fixed
+- Fixed mobile layout styles across analytics, search, navigation, auth pages, dialogs, and more
+- Fixed card grid and carousel display issues across all games
+- Fixed several TCG analytics data display and calculation issues
+
+---
+
 ## 2026-03-12
 
 ### Added
