@@ -13,11 +13,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Server-side analytics processing via Supabase RPCs for faster load times and reduced client-side computation
 - Virtualized data tables in analytics for smoother scrolling with large card lists
 - Full FF TCG analytics suite with dedicated Value, Progress, and Missing Cards pages including price sparklines and card thumbnails
+- Separate TCG settings drawer with drag-and-drop set ordering, roman numeral icons, collection mode, and currency preference
+- Mobile game switcher now always uses instant dropdown swap instead of character select animation
+- Updated landing page to reference both MTG Final Fantasy and FF TCG
 
 ### Fixed
 - Fixed mobile layout styles across analytics, search, navigation, auth pages, dialogs, and more
 - Fixed card grid and carousel display issues across all games
 - Fixed several TCG analytics data display and calculation issues
+- Fixed carousel TCGPlayer buy link not applying foil filter — switched from encoded params to real query params
+- Fixed carousel Cardmarket buy link appearing with broken URL when no Cardmarket link exists for the card
+- Fixed pointer-events-none stuck on body when switching games via the mobile menu dropdown
+- Fixed settings drawer set reorder flickering by using local state with deferred mutation for both MTG and TCG
+- Removed mobile "Under Construction" warning modal
 
 ---
 
