@@ -62,7 +62,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 - Animated set and game selection screen with visual transitions between MTG and FF TCG
-- Dual-color flame aura effects for cards with animated fire shader and mask pathing
 
 ---
 

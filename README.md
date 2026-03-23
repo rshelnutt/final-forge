@@ -9,7 +9,7 @@
 
 ## What is Final Forge?
 
-Final Forge is a free, modern web application designed for collectors and players of the Magic: The Gathering × Final Fantasy crossover sets and the Final Fantasy Trading Card Game (FF TCG). Whether you're chasing completion on the main set, building commander decks, organizing binders, hunting down every foil variant, or tracking your FF TCG collection — Final Forge gives you the tools to organize, visualize, and complete your collection.
+Final Forge is a free, modern web application designed for collectors and players of the Magic: The Gathering × Final Fantasy crossover sets and the Final Fantasy Trading Card Game (FF TCG). Whether you're chasing completion on the main set, building commander decks, organizing binders, hunting down every foil variant, or tracking your Final Fantasy collection — Final Forge gives you the tools to organize, visualize, and complete your collection.
 
 Built by collectors, for collectors.
 
@@ -24,7 +24,6 @@ Built by collectors, for collectors.
 - **Foil tracking** — Separately track foil, surge foil, and non-foil versions of each card
 - **Full-screen card carousel** — Browse cards with keyboard shortcuts (arrows, Enter, Shift+Tab, Space) and swipe navigation
 - **3D holographic card effects** — Interactive cards with mouse/touch-reactive tilt and premium foil treatments
-- **Flame aura effects** — Dual-color animated fire shader effects on select cards
 - **Special card tracking** — Customize tracking for Black Chocobo and Golden Chocobo variants
 
 ### Multi-Game Support
