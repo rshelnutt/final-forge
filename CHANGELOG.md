@@ -6,6 +6,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## 2026-04-06
+
+### Added
+- Added Bazaar mode for both MTG and FF TCG — create lists of cards to buy, sell, or trade with TCGPlayer market pricing baked in
+- Buy and Sell lists support per-card price overrides and a variable pricing mode (set a percentage off market price instead of a fixed amount)
+- Trade lists have separate Want and Have sections so you can show what you're looking for alongside what you're offering
+- Three visibility states for every list — Private (only you), Unlisted (anyone with the link), and Public (also appears in Browse Listings)
+- Browse Listings page lets you discover other users' Public bazaar lists, filterable by type and searchable by name or author
+- Share view tracks unique views per visitor over a 24-hour window so you can see how many people have looked at your list
+- Cards in your bazaar list show the proper finish texture (regular, foil, surge foil) and lock to a single finish when only one is available
+- Sort and group your bazaar list by name, set, or price, and toggle between grid and list views
+- Copy Link buttons on bazaar lists make it easy to share your permalink
+
+### Fixed
+- Fixed sidebar navigation accordion staying closed when navigating between sub-pages of a section (e.g. Bazaar)
+- Fixed sub-menu items not highlighting when on a deeper sub-page (e.g. My Lists not highlighting when viewing a specific list)
+- Fixed bazaar view counts not incrementing when users opened share links
+
+---
+
 ## 2026-03-16 — 2026-03-18
 
 ### Added

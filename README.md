@@ -36,6 +36,15 @@ Built by collectors, for collectors.
 - **Binder builder** — Organize your collection into custom binder pages with drag-and-drop
 - **Deck builder** — Build and manage your decks with card search and organization tools
 
+### Bazaar
+- **Buy, Sell, and Trade lists** — Build per-game lists of cards you want to buy, sell, or trade with TCGPlayer market pricing baked in
+- **Price overrides** — Override the market price per card or set a percentage discount off market via variable pricing mode
+- **Trade Want/Have sections** — Trade lists separate the cards you want from the cards you have to offer
+- **Three visibility states** — Keep lists Private, Unlisted (link only), or Public (also appears in Browse Listings)
+- **Public browse** — Discover other users' bazaar listings, filterable by type and searchable by name or author
+- **Share links** — Permalink each list with a short share code; copy link buttons throughout the UI
+- **View tracking** — See how many unique visitors have viewed your shared list (24-hour windows)
+
 ### Global Search
 - **Fuzzy search** — Search across all cards, sets, and precons with instant results
 - **Card previews** — See card images and details directly in search results
