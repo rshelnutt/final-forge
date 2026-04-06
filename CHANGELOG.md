@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 - Added Bazaar mode for both MTG and FF TCG — create lists of cards to buy, sell, or trade with TCGPlayer market pricing baked in
-- Buy and Sell lists support per-card price overrides and a variable pricing mode (set a percentage off market price instead of a fixed amount)
+- Buy and Sell lists support per-card price overrides and a variable pricing mode that scales automatically with TCGPlayer market price
 - Trade lists have separate Want and Have sections so you can show what you're looking for alongside what you're offering
 - Three visibility states for every list — Private (only you), Unlisted (anyone with the link), and Public (also appears in Browse Listings)
 - Browse Listings page lets you discover other users' Public bazaar lists, filterable by type and searchable by name or author
@@ -18,11 +18,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Cards in your bazaar list show the proper finish texture (regular, foil, surge foil) and lock to a single finish when only one is available
 - Sort and group your bazaar list by name, set, or price, and toggle between grid and list views
 - Copy Link buttons on bazaar lists make it easy to share your permalink
+- Added a Copy Link button to card grid hover overlays so you can grab a direct link to any card's set page
+- Added a Copy Link button to the carousel card detail panel next to the finish icons
+- Added page titles for every main navigation route so browser tabs and history are easier to scan
+- Variable pricing now uses a cleaner "percentage of market" model — 100% means at market, 90% means 10% below market, 140% means 40% above market
+- Variable pricing labels adapt per list type — "Variable Price" on Sell lists and "Variable Offer" on Buy lists, with a tooltip explaining how it works
+- Variable pricing badges now show direction with up/down arrows and turn green when the listing favors the owner (selling at a discount, buying above market) or pink when it does not
+- Global search results are now sorted by set then collector number, with TCG results respecting the canonical opus/expansion order
 
 ### Fixed
 - Fixed sidebar navigation accordion staying closed when navigating between sub-pages of a section (e.g. Bazaar)
 - Fixed sub-menu items not highlighting when on a deeper sub-page (e.g. My Lists not highlighting when viewing a specific list)
 - Fixed bazaar view counts not incrementing when users opened share links
+- Fixed bazaar listings showing no price for surge foil-only cards (e.g. Yuna, Hope of Spira)
+- Fixed the purple selection ring on card grids having square corners that didn't match the card's rounded shape
+- Fixed the underlying card grid waiting for the carousel slide animation to finish before paginating to a new page when cycling cards
+- Fixed orphaned highlight rings on card grid pages when navigating quickly across page boundaries in the carousel
 
 ---
 
