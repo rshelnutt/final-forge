@@ -25,6 +25,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Variable pricing labels adapt per list type — "Variable Price" on Sell lists and "Variable Offer" on Buy lists, with a tooltip explaining how it works
 - Variable pricing badges now show direction with up/down arrows and turn green when the listing favors the owner (selling at a discount, buying above market) or pink when it does not
 - Global search results are now sorted by set then collector number, with TCG results respecting the canonical opus/expansion order
+- Fixed-price bazaar listings now use the same green/pink directional badges as variable pricing — a discount below market turns green on a Sell list (with a down arrow) and pink on a Buy list, and an offer above market turns green on a Buy list and pink on a Sell list
+- Added proper link preview data (OpenGraph / Twitter) to the Bazaar section — the main Bazaar, Browse Listings, and My Lists pages now show a real title, description, and preview image when shared on social media
+- Shared bazaar listings (from the Browse Listings page) now include the list name, type, card count, and author in their social preview so people can see what they're clicking on before opening the link
+- Added link preview data to the main MTG and TCG dashboards, all Progress/Value/Missing Cards analytics pages, and the public Browse Decks page
 
 ### Fixed
 - Fixed sidebar navigation accordion staying closed when navigating between sub-pages of a section (e.g. Bazaar)
